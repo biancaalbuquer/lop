@@ -1,0 +1,73 @@
+/* Equipe: Bianca Santos de Albuquerque - Subturma d (Líder)
+Etapa 5 e 6 */
+
+var x=30; 
+var y=350; 
+var xd = 0;
+var yd = 0;
+var chances = 3;
+var pontos = 0;
+var prova = 1;
+var raio1 = 25;
+var raio2 = 25;
+var xq = 150;
+var yq = 140;
+var estadoDisparo = false
+function setup() { 
+  createCanvas(400, 400); 
+}
+ 
+  
+function draw() { 
+  background('#222222'); 
+  ellipse(x,y,raio1*2,raio2*2); 
+    fill(0, 102, 153);
+    textSize(18);
+    text('Chances: '+chances, 10, 30);
+    text('Pontos: '+pontos, 150, 30);
+    text('Prova: '+prova, 300, 30);
+  
+  
+if (keyIsDown(LEFT_ARROW)) { x = x-5; }
+
+if (keyIsDown(RIGHT_ARROW)) { x = x+5; }
+
+if (keyIsDown(UP_ARROW)) { y = y-5; }
+
+if (keyIsDown(DOWN_ARROW)) { y = y+5; }
+  
+  if(x>400){
+    x = 0;
+  }
+  if(x<0){
+    x= 400;
+  }
+  if(y>400){
+    y = 0;
+  }
+  if(y<0){
+    y= 400;
+  }
+  if(keyIsDown(CONTROL)) {
+    xd = x;
+    yd = y;
+    estadoDisparo = true;
+  }
+  if(estadoDisparo){
+    ellipse(xd, yd, 8,8);
+    yd =yd -10;
+  }
+  
+  
+  
+
+rect(xq, yq, 50, 50); 
+fill(20, 10, 200, 200); 
+stroke(120, 63, 120);
+if(dist(x, y, xq, yq) < raio1 + raio2){
+    x=30; 
+    y=350;
+    chances = chances -1;
+}
+}
+  
