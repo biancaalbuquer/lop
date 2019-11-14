@@ -1,0 +1,147 @@
+/* Equipe: Bianca Santos de Albuquerque - Subturma d (Líder)
+Etapa 9 e 10 */
+
+var x=30; 
+var y=350; 
+var xd = 0;
+var yd = 0;
+var chances = 10;
+var tempo = 0;
+var prova = 'único';
+var raio1 = 25;
+var raio2 = 25;
+var xq = [];
+var yq = [], obj=6,obj1 = 6;
+var estadoDisparo = false
+var Over = 'Died';
+var tela =1;
+let bg;
+let c;
+let cersei;
+var anima;
+var soldado;
+var selva;
+var inimigo;
+var tiro;
+var tyrion;
+anima = soldado;
+anima2 = inimigo;
+anima3= tiro;
+function setup() { 
+  tyrion = loadImage('guerreiro.jpg')
+  tiro = loadImage('fogovivo.jpg')
+  inimigo= loadImage('mine0.png')
+  selva = loadImage('bg_jungle.png')
+  soldado = loadImage('soldado10.png')
+  bg = loadImage('batalha.jpg');
+  cersei =loadImage('cersei-walk-of-shame.png')
+  createCanvas(500, 460);
+   for(var i=0; i<obj; i++){
+  xq[i]=random(30,400)
+  yq[i]= random(30,140)
+  }
+}
+ 
+  
+function draw() {
+  if(tela==1){
+    c = color('hsl(160, 100%, 50%)');
+    background(bg);
+    textSize(30);
+    fill(c);
+    text('     A FÚRIA DOS REIS'+'\n'+'           play enter', 80, 350);
+    if(keyIsDown(ENTER)) {
+    tela=2;
+    }
+  }
+  if(tela==2){
+    c = color('rgb(0,255,0)');
+    background(tyrion);
+    textSize(20);
+    fill(c);
+    text('Em Porto Real uma batalha de grandes proporções'+'\n'+' está acontecendo. Você como mão do rei, deve ajudar a defender'+'\n'+ ' o seu reino a ganhar a Batalha da Água Negra com'+'\n'+'fogo vivo.'+'\n'+'\n'+    '                               Play Seta para cima', 10, 150);
+    if(keyIsDown(UP_ARROW)) {
+    tela=3;
+    }
+  }
+  if(tela ==3){
+  background(selva); 
+    anima=soldado;
+    image(anima,x,y);
+    fill(255, 204, 0);
+    tempo++;
+    textSize(18);
+    text('Chances: '+chances, 10, 30);
+    text('Tempo: '+(Math.floor(tempo/60)), 200, 30);
+    text('Nível: '+prova, 350, 30);
+    if(chances<1){
+      tela =4;
+    }
+  
+  
+if (keyIsDown(LEFT_ARROW)) { x = x-5; }// movimentação do 
+
+if (keyIsDown(RIGHT_ARROW)) { x = x+5; }
+
+
+  if(x>400){
+    x = 0;
+  }
+  if(x<0){
+    x= 400;
+  }
+  if(y>400){
+    y = 0;
+  }
+  if(y<0){
+    y= 400;
+  }
+  if(keyIsDown(CONTROL)) {
+      yd=y
+      xd=x
+    estadoDisparo = true;
+  }
+  if(estadoDisparo){
+    anima3=tiro;
+    image(anima3, xd, yd)
+    yd =yd -10;
+  }
+  
+for(i=0;i<obj;i++){
+fill('#fae');
+   anima2=inimigo;
+    image(anima2,xq[i], yq[i], 50, 50);//inimigo
+if(dist(x, y, xq[i], yq[i]) < raio1 + raio2){
+    x=0; 
+    y=350;
+     xq[i] = random(30,400)
+    yq[i] = random(30,140)
+    chances = chances -1;
+  if(chances < 1){
+    chances = Over;
+  }
+}
+  }
+  for(i=0;i<obj; i++){
+    yq[i] = yq[i] +3
+    if(dist(xd, yd, xq[i], yq[i]) < raio1 + raio2){
+   xq[i] = random(0, 400)
+   yq[i] = random(0, -100)   
+}
+     if(yq[i]  >400 ){
+        yq[i] = random(0, -100) 
+       xq[i] = random(0, 400)
+}
+}  
+fill(20, 10, 200, 200); 
+stroke(120, 63, 120);
+    if(chances == Over){//fim de jogo
+    c = color('hsl(160, 100%, 50%)');
+    background(cersei);
+    textSize(30);
+    fill(c);
+    text('Você morreu e levou consigo a'+ '\n'+'    última chance de salvar este'+'\n'+'      reino do rei usurpador.'+'\n'+'\n'+'\n'+'             E como dizem,'+'\n'+'        No jogo dos tronos'+'\n'+'        você ganha ou morre.', 30, 150);
+    }
+}
+
+}
