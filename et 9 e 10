@@ -1,7 +1,7 @@
 /* Equipe: Bianca Santos de Albuquerque - Subturma d (Líder)
 Etapa 9 e 10 */
 
-var x=30; 
+var x=0; 
 var y=350; 
 var xd = 0;
 var yd = 0;
